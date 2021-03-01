@@ -368,11 +368,15 @@ public final class FileUtils {
     public static long getProcessHandleCount() {
         if (IS_WINDOWS) {
             if (!nativeLibLoaded) {
+            	System.out.println("FileUtils native lib not loaded. Loading...");
                 System.loadLibrary("FileUtils");
                 nativeLibLoaded = true;
+                System.out.println("Loading complete.");
             }
+            System.out.println("DEBUG: Windows detected by FileUtils.java");
             return getWinProcessHandleCount();
         } else {
+        	System.out.println("DEBUG: Windows was not detected by FileUtils.java");
             return ((UnixOperatingSystemMXBean)ManagementFactory.getOperatingSystemMXBean()).getOpenFileDescriptorCount();
         }
     }
