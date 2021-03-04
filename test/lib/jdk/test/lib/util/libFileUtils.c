@@ -24,3 +24,16 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "jni.h"
+#include <windows.h>
+
+JNIEXPORT jlong JNICALL Java_jdk_test_lib_util_FileUtils_getWinProcessHandleCount(JNIEnv *env)
+{
+    DWORD handleCount;
+    HANDLE handle = GetCurrentProcess();
+    if (GetProcessHandleCount(handle, &handleCount)) {
+        return (jlong)handleCount;
+    } else {
+        return -1L;
+    }
+}
